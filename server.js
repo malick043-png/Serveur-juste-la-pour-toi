@@ -26,4 +26,4 @@ app.post('/message', async (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => console.log('Serveur démarré'));
 
-app.listen(process.env.PORT || 3000, () => console.log('Serveur démarré'));
+app.listen(process.env.PORT, () => console.log('Serveur démarré'));
