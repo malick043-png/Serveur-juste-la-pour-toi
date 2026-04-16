@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 app.post('/message', async (req, res) => {
@@ -19,8 +19,11 @@ app.post('/message', async (req, res) => {
     const data = await response.json();
     res.json(data);
   } catch (e) {
+    console.error('Erreur:', e);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+app.listen(process.env.PORT || 3000, () => console.log('Serveur démarré'));
 
 app.listen(process.env.PORT || 3000, () => console.log('Serveur démarré'));
