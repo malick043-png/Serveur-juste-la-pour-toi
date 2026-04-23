@@ -27,9 +27,9 @@ app.post('/message', async (req, res) => {
 });
 
 app.post('/communaute', (req, res) => {
-  const { pensee, prenom } = req.body;
+ const { pensee, prenom, groupe } = req.body;
   if (!pensee || pensee.length > 200) return res.status(400).json({ error: 'Pensée invalide' });
-  const entry = { id: Date.now(), pensee, prenom: prenom || 'Anonyme', coeurs: 0, date: new Date().toLocaleDateString('fr-FR') };
+  const entry = { id: Date.now(), pensee, prenom: prenom || 'Anonyme', groupe: groupe || 'Général', coeurs: 0, date: new Date().toLocaleDateString('fr-FR') };
   communaute.unshift(entry);
   if (communaute.length > 50) communaute.pop();
   res.json(entry);
