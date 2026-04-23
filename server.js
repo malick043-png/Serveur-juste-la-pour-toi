@@ -6,6 +6,14 @@ app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10kb' }));
 
 let communaute = [];
+let compteur = 247;
+let temoignages = [
+  { nom: "Fatou S.", pays: "🇸🇳", avis: "Cette app m'a aidée à gérer mon stress au travail. L'assistant est vraiment empathique !", note: 5 },
+  { nom: "Amadou D.", pays: "🇸🇳", avis: "Je parle en wolof et l'IA me comprend ! C'est incroyable. Je l'utilise tous les jours.", note: 5 },
+  { nom: "Marie K.", pays: "🇫🇷", avis: "Le journal de bord et les exercices de respiration m'ont vraiment aidée. Merci !", note: 5 },
+  { nom: "Ibrahim B.", pays: "🇸🇳", avis: "Enfin une app de bien-être adaptée à nous les Africains. Très bonne initiative !", note: 5 },
+  { nom: "Sophie M.", pays: "🇧🇪", avis: "La lettre à mon futur moi est une fonctionnalité unique. J'adore cette app !", note: 5 }
+];
 const requestCounts = {};
 const penseeeCounts = {};
 
@@ -83,5 +91,16 @@ app.post('/communaute/:id/coeur', rateLimit, (req, res) => {
   if (entry) { entry.coeurs++; res.json(entry); }
   else res.status(404).json({ error: 'Non trouvé' });
 });
+app.get('/compteur', (req, res) => {
+  res.json({ compteur });
+});
 
+app.post('/compteur', (req, res) => {
+  compteur++;
+  res.json({ compteur });
+});
+
+app.get('/temoignages', (req, res) => {
+  res.json(temoignages);
+});
 app.listen(process.env.PORT, () => console.log('Serveur démarré'));
