@@ -139,7 +139,15 @@ app.post('/communaute/:id/coeur', rateLimit, (req, res) => {
 app.get('/compteur', (req, res) => { res.json({ compteur }); });
 app.post('/compteur', (req, res) => { compteur++; res.json({ compteur }); });
 app.get('/temoignages', (req, res) => { res.json(temoignages); });
+app.delete('/communaute/:id', (req, res) => {
+  const idx = communaute.findIndex(e => e.id === parseInt(req.params.id));
+  if (idx >= 0) { communaute.splice(idx, 1); res.json({ success: true }); }
+  else res.status(404).json({ error: 'Non trouvé' });
+});
 
+app.post('/sessions', (req, res) => {
+  res.json({ success: true });
+});
 app.get('/salles', (req, res) => {
   const sallesPubliques = Object.entries(salles).map(([id, s]) => ({ id, theme: s.theme, membres: s.membres.length })).filter(s => s.membres < 5);
   res.json(sallesPubliques);
