@@ -108,7 +108,7 @@ app.post('/message', rateLimit, async (req, res) => {
     if (!messages || !Array.isArray(messages)) return res.status(400).json({ error: 'Messages invalides' });
     if (messages.length > 50) return res.status(400).json({ error: 'Trop de messages' });
     const lastMsg = messages[messages.length - 1]?.content || '';
-    if (lastMsg.length > 2000) return res.status(400).json({ error: 'Message trop long' });
+    if (lastMsg.length > 5000) return res.status(400).json({ error: 'Message trop long' });
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.ANTHROPIC_KEY, 'anthropic-version': '2023-06-01' },
